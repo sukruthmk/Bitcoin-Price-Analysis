@@ -1,6 +1,7 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 
+import { EUR, INR, USD } from "../../core/enum/currency";
 import Chart from "./chart";
 import Summary from "./summary";
 import { MainContainer, SubText } from "../../core/framework/layout";
@@ -11,12 +12,7 @@ const Widget = () => {
       <Container>
         <Row>
           <Col>
-            <SubText>1 Bitcoin equals</SubText>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Summary />
+            <Summary/>
           </Col>
           <Col>
             <Chart />
