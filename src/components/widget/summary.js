@@ -5,8 +5,7 @@ import { Form, Col } from "react-bootstrap";
 import { EUR, INR, USD } from "../../core/enum/currency";
 import { PadContainer, SubText } from "../../core/framework/layout";
 
-const Summary = () => {
-  const [currency, setCurrency] = React.useState(INR);
+const Summary = ({ currency, setCurrency }) => {
   const [date, setDate] = React.useState(null);
   const [price, setPrice] = React.useState(null);
   const [qty, setQty] = React.useState(1);
@@ -61,9 +60,9 @@ const Summary = () => {
                 onChange={e => setCurrency(e.target.value)}
                 value={currency}
               >
-                <option>{EUR}</option>
-                <option>{INR}</option>
-                <option>{USD}</option>
+                <option value={EUR}>{EUR}</option>
+                <option value={INR}>{INR}</option>
+                <option value={USD}>{USD}</option>
               </Form.Control>
             </Form.Group>
           </Form.Row>
