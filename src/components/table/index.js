@@ -42,6 +42,7 @@ const BTTable = ({ endDate, range, startDate }) => {
             }
           }
         }
+        return currency;
       });
       setFilteredData(hashMap);
     }
