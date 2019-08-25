@@ -12,7 +12,8 @@ import {
 } from "../../core/enum/dateRanges";
 import { PadContainer } from "../../core/framework/layout";
 
-const Chart = ({ chartData, currency, range, setChartData, setRange }) => {
+const Chart = ({ currency, range, setStartDate, setEndDate, setRange }) => {
+  const [chartData, setChartData] = React.useState({});
   const formatDate = date => {
     var d = new Date(date),
       month = "" + (d.getMonth() + 1),
@@ -29,7 +30,8 @@ const Chart = ({ chartData, currency, range, setChartData, setRange }) => {
     let startDate = "";
     const endDate = formatDate(date);
     if (range === ONE_MONTH) {
-      return `https://api.coindesk.com/v1/bpi/historical/close.json?currency=${currency}`;
+      date.setMonth(date.getMonth() - 1);
+      startDate = formatDate(date);
     }
     if (range === THREE_MONTH) {
       date.setMonth(date.getMonth() - 3);
@@ -39,8 +41,10 @@ const Chart = ({ chartData, currency, range, setChartData, setRange }) => {
       date.setMonth(date.getMonth() - 12);
       startDate = formatDate(date);
     }
+    setStartDate(startDate);
+    setEndDate(endDate);
     return `https://api.coindesk.com/v1/bpi/historical/close.json?start=${startDate}&end=${endDate}&currency=${currency}`;
-  }, [currency, range]);
+  }, [currency, range, setEndDate, setStartDate]);
   const url = getUrl();
   React.useEffect(() => {
     async function fetchData() {
@@ -66,8 +70,10 @@ const Chart = ({ chartData, currency, range, setChartData, setRange }) => {
                     value={range}
                     onChange={e => setRange(e.target.value)}
                   >
-                    {RANGES.map((range,index) => (
-                        <option value={range} key={index}>{range}</option>
+                    {RANGES.map((range, index) => (
+                      <option value={range} key={index}>
+                        {range}
+                      </option>
                     ))}
                   </Form.Control>
                 </Form.Group>
